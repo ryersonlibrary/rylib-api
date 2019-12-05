@@ -8,9 +8,11 @@ function rylib_api_response($callback_function, $callback_args, $response_object
     } else {
       $response_object = call_user_func($callback_function, $callback_args);
     }
-    return new WP_REST_Response( [ $response_object_name => $response_object ], 200 );
+    $rest_response = new WP_REST_Response( [ $response_object_name => $response_object ], 200 );
+    $rest_response->set_headers(array('Cache-Control' => 'max-age=3600, public'));
+    return $rest_response;
   } catch ( Exception $e ) {
-    return new WP_REST_Response( 
+    $rest_response = new WP_REST_Response( 
       [
         'code' => rylib_api_get_error_code($e->getCode()),
         'message' => $e->getMessage(),
@@ -20,6 +22,8 @@ function rylib_api_response($callback_function, $callback_args, $response_object
       ], 
       $e->getCode() 
     );
+    $rest_response->set_headers(array('Cache-Control' => 'max-age=3600, public'));
+    return $rest_response;
   }
 }
 
