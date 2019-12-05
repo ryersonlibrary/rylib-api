@@ -12,7 +12,7 @@ rylib_api_add_route('/licenses', [
     'methods' => 'GET',
     'callback' => 'rylib_api_licenses_callback',
     'args' => [
-      'name' => [
+      'provider' => [
         'sanitize_callback' => 'rylib_api_sanitize_string'
       ]
     ]
@@ -39,7 +39,7 @@ rylib_api_add_route('/licenses/(?P<license_tag>[a-zA-Z0-9-_]+)', [
 function rylib_api_licenses_callback( WP_REST_Request $req ) {
   return rylib_api_response(
     'rylib_api_find_license',
-    $req->get_param('name'),
+    $req->get_param('provider'),
     'license'
   );
 }
@@ -56,12 +56,12 @@ function rylib_api_license_callback( WP_REST_Request $req ) {
 
 // Returns the mapped license for the specified resource name from OURdb 
 // if it exists, otherwise returns 404.
-function rylib_api_find_license($name) {
-  $request_url = OURDB_BASE_URL . "/json/?name={$name}";
+function rylib_api_find_license($provider) {
+  $request_url = OURDB_BASE_URL . "/json/?name={$provider}";
   $response = wp_remote_get( $request_url );
   $json = json_decode(wp_remote_retrieve_body( $response ), true );
   if ( !$json ) { 
-    throw new Exception( "No license was found for the publication with the name: '${name}'", '404'); 
+    throw new Exception( "No license was found for provider: '${provider}'", '404'); 
   }
   $json['license-uri'] = OURDB_BASE_URL . "/{$json['license-tag']}";
   
