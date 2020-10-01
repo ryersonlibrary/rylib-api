@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) OR exit;
  * Author URI: https://github.com/ryersonlibrary
  * Description: REST API endpoints for the Ryerson University Library WordPress site.
  * GitHub Plugin URI: https://github.com/ryersonlibrary/rylib-api
- * Version: 0.0.3-alpha
+ * Version: 0.0.4-alpha
  */
 
 // Include helper functions for this plugin.

@@ -7,6 +7,7 @@ rylib_api_add_route('/menus', [
   array(
     'methods' => 'GET',
     'callback' => 'rylib_api_menus_callback',
+    'permission_callback' => '__return_true',
   ),
 ], 'v0');
 
@@ -20,7 +21,8 @@ rylib_api_add_route('/menus/(?P<menu>[a-zA-Z0-9-_]+)', [
       'menu' => [
         'sanitize_callback' => 'rylib_api_sanitize_string'
       ]
-    ]
+    ],
+    'permission_callback' => '__return_true',
   ),
 ], 'v0');
 
@@ -34,7 +36,8 @@ rylib_api_add_route('/menus/(?P<menu>[a-zA-Z0-9-_]+)/items', [
       'menu' => [
         'sanitize_callback' => 'rylib_api_sanitize_string'
       ]
-    ]
+    ],
+    'permission_callback' => '__return_true',
   ),
 ], 'v0');
 

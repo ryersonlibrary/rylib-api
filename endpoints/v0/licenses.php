@@ -15,7 +15,8 @@ rylib_api_add_route('/licenses', [
       'provider' => [
         'sanitize_callback' => 'rylib_api_sanitize_string'
       ]
-    ]
+    ],
+    'permission_callback' => '__return_true',
   ),
 ], 'v0');
 
@@ -29,7 +30,8 @@ rylib_api_add_route('/licenses/(?P<license_tag>[a-zA-Z0-9-_]+)', [
       'license_tag' => [
         'sanitize_callback' => 'rylib_api_sanitize_string'
       ]
-    ]
+    ],
+    'permission_callback' => '__return_true',
   ),
 ], 'v0');
 
